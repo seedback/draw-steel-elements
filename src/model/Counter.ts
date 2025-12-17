@@ -14,6 +14,7 @@ export class Counter extends ComponentWrapper {
     current_value: number;
     max_value?: number;
     min_value: number;
+    auto_save: boolean;
     name_top_height: number;
     name_bottom_height: number;
     value_height: number;
@@ -46,20 +47,21 @@ export class Counter extends ComponentWrapper {
     }
 
     public static parse(data: any): Counter {
-        return {
-            collapsible: data.collapsible,
-            collapse_default: data.collapse_default,
-            name_top: data.name_top,
-            name_bottom: data.name_bottom,
-            current_value: data.current_value,
-            max_value: data.max_value,
-            min_value: data.min_value,
-            name_top_height: data.name_top_height,
-            name_bottom_height: data.name_bottom_height,
-            value_height: data.value_height,
-            hide_buttons: data.hide_buttons,
-            style: data.style,
-        } as Counter;
+        return new Counter(
+            data.collapsible,
+            data.collapse_default,
+            data.max_value,
+            data.current_value,
+            data.min_value,
+            data.name_top,
+            data.name_bottom,
+            data.auto_save,
+            data.value_height,
+            data.name_top_height,
+            data.name_bottom_height,
+            data.hide_buttons,
+            data.style,
+        );
     }
 
     constructor(
@@ -70,6 +72,7 @@ export class Counter extends ComponentWrapper {
         min_value: number,
         name_top: string,
         name_bottom: string,
+        auto_save: boolean,
         value_height: number,
         name_top_height: number,
         name_bottom_height: number,
@@ -77,14 +80,17 @@ export class Counter extends ComponentWrapper {
         style: StyleType,
     ) {
         super(collapsible, collapse_default);
-        this.current_value = current_value ?? 0;
         this.min_value = min_value ?? undefined;
         this.max_value = max_value ?? undefined;
+        if (max_value && current_value > max_value) { this.current_value = max_value}
+        else if (max_value && current_value < min_value) { this.current_value = min_value}
+        else {this.current_value = current_value ?? 0}
         this.name_top = name_top;
         this.name_bottom = name_bottom;
-        this.value_height = value_height ?? 0;
-        this.name_top_height = name_top_height ?? 0;
-        this.name_bottom_height = name_bottom_height ?? 0;
+        this.auto_save = auto_save ?? false;
+        this.value_height = value_height ?? 1;
+        this.name_top_height = name_top_height ?? 1;
+        this.name_bottom_height = name_bottom_height ?? 1;
         this.hide_buttons = hide_buttons ?? 'neither';
         this.style = style ?? 'default';
     }

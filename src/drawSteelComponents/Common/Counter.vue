@@ -8,7 +8,7 @@
                 </span>
                 <span class="input-container vertical">
                     <input type="text" :value="state.inputValue"
-                        :style="`width:${state.inputValue.length + 0.5}ch; font-size:${model.value_height}`"
+                        :style="`width:${state.inputValue.length + 0.5}ch; font-size:${32*model.value_height}px`"
                         @input="validateInput($event)" @change="updateValue" />
                     <tooltip-hover class="tooltip-wrapper vertical"
                         tooltip-text='Writing "+" or "-" will modify the existing value instead of overwriting it.' />
@@ -60,7 +60,10 @@
 import DsButton from '@drawSteelComponents/Common/DsButton.vue'
 import { Counter } from '@model/Counter';
 import TooltipHover from '@drawSteelComponents/Common/TooltipHover.vue'
-import { reactive, watch } from 'vue';
+import { inject, reactive, watch } from 'vue';
+import { ModalProcessor } from '@/utils/ModalProcessor';
+import { App, MarkdownPostProcessorContext } from 'obsidian';
+import { CodeBlocks } from '@/utils/CodeBlocks';
 
 const props = defineProps<{
     model: Counter
@@ -75,6 +78,9 @@ const state = reactive({
 if (!['default', 'horizontal', 'vertical', undefined].includes(props.model.style)) {
     throw new Error(`Invalid style on Counter: ${props.model.style}`);
 }
+
+const obsidianApp = inject<App>('obsidianApp')
+const obsidianContext = inject<MarkdownPostProcessorContext>('obsidianContext')
 
 const disableUpArrowValues = [true, "true", "both", "minus"]
 const disableDownArrowValues = [true, "true", "both", "plus"]
@@ -113,24 +119,46 @@ const updateValue = (input: string | Event) => {
 
     if (modifier === '') {
         state.inputValue = number.toString()
+        props.model.current_value = number;
         emit('set-value', number);
+        updateYaml();
         return;
     }
     if (modifier === '+') {
-        state.inputValue = (Number(state.inputValue) + number).toString()
-        if (props.model.max_value && Number(state.inputValue) > props.model.max_value) {
+        const newValue = Number(state.inputValue) + number;
+        state.inputValue = newValue.toString();
+        if (props.model.max_value && newValue > props.model.max_value) {
             state.inputValue = props.model.max_value.toString();
+            props.model.current_value = props.model.max_value;
+        } else {
+            props.model.current_value = newValue;
         }
         emit('mod-value', number);
+        updateYaml();
         return
     }
     if (modifier === '-') {
-        state.inputValue = (Number(state.inputValue) - number).toString()
-        if (props.model.max_value && Number(state.inputValue) < props.model.min_value) {
+        const newValue = Number(state.inputValue) - number;
+        state.inputValue = newValue.toString();
+        if (props.model.min_value && newValue < props.model.min_value) {
             state.inputValue = props.model.min_value.toString();
+            props.model.current_value = props.model.min_value;
+        } else {
+            props.model.current_value = newValue;
         }
         emit('mod-value', -number);
+        updateYaml();
         return
+    }
+}
+
+const updateYaml = () => {
+    console.log("trying to autosave");
+
+    if (props.model.auto_save) {
+        console.log("autosaving");
+
+        CodeBlocks.updateCounter(obsidianApp!, props.model, obsidianContext!);
     }
 }
 
@@ -185,7 +213,7 @@ watch(() => props.model?.current_value, (newVal: number | undefined) => {
 
 .counter-inner-container.vertical {
     flex-direction: column;
-    margin-right: 1ch;
+    margin-right: 2ch;
 }
 
 .input-container {
