@@ -34,17 +34,22 @@ allOf:
         type: integer
         description: Adjusts the size of the counter name_bottom text in the rendered output as a multiplier.
       hide_buttons:
-        type: string
-        description: \"true\" will hide both buttons, \"plus\" and \"minus\" will hide the corresponding button.
-        transform:
-        - trim
-        - toLowerCase
-        enum:
-          - true
-          - plus
-          - minus
+        oneOf:
+          - type: boolean
+          - type: string
+            transform:
+              - trim
+              - toLowerCase
+            enum:
+              - "true"
+              - "false"
+              - both
+              - neither
+              - plus
+              - minus
         default: false
-        errorMessage: hide_buttons must be either "true", "plus" or "minus"
+        description: '"true" will hide both buttons, "plus" and "minus" will hide the corresponding button.'
+        errorMessage: hide_buttons must be a boolean or one of "true", "false", "both", "neither", "plus", "minus"
       style:
         type: string
         description: The style the counter should use.

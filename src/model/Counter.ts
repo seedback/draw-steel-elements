@@ -6,7 +6,7 @@ import {
 import { ComponentWrapper } from "@model/ComponentWrapper";
 import counterSchemaYaml from "@model/schemas/Counter.yaml";
 
-type HideButtonsType = "false" | "true" | "plus" | "minus" | undefined;
+type HideButtonsType = true | false | "true" | "false" | "neither" | "both" | "plus" | "minus" | undefined;
 type StyleType = "default" | "horizontal" | "vertical" | undefined;
 export class Counter extends ComponentWrapper {
     name_top: string;
@@ -85,7 +85,7 @@ export class Counter extends ComponentWrapper {
         this.value_height = value_height ?? 0;
         this.name_top_height = name_top_height ?? 0;
         this.name_bottom_height = name_bottom_height ?? 0;
-        this.hide_buttons = hide_buttons ?? 'false';
+        this.hide_buttons = hide_buttons ?? 'neither';
         this.style = style ?? 'default';
     }
 }

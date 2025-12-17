@@ -20,9 +20,9 @@
             <span class="button-wrapper vertical">
                 <span class="button-container vertical">
                     <ds-button class="plus-button" icon="chevron-up" variant="simplified" @click="updateValue('+1')"
-                        v-if="model.hide_buttons != 'true' && model.hide_buttons != 'plus'" />
+                        v-if="model.hide_buttons == undefined || !disableUpArrowValues.includes(model.hide_buttons)" />
                     <ds-button icon="chevron-down" variant="simplified" @click="updateValue('-1')"
-                        v-if="model.hide_buttons != 'true' && model.hide_buttons != 'minus'" />
+                        v-if="model.hide_buttons == undefined || !disableDownArrowValues.includes(model.hide_buttons)" />
                 </span>
             </span>
         </span>
@@ -33,7 +33,7 @@
             </span>
             <span class="counter-inner-container">
                 <ds-button icon="minus-circle" variant="icon" @click="updateValue('-1')"
-                    v-if="model.hide_buttons != 'true' && model.hide_buttons != 'plus'" />
+                    v-if="model.hide_buttons == undefined || !disableUpArrowValues.includes(model.hide_buttons)" />
                 <span class="input-container">
                     <input type="text" :value="state.inputValue" @input="validateInput($event)" @change="updateValue" />
                     <tooltip-hover class="tooltip-wrapper"
@@ -43,7 +43,7 @@
                     / {{ model.max_value }}
                 </span>
                 <ds-button class="plus-button" icon="plus-circle" variant="icon" @click="updateValue('+1')"
-                    v-if="model.hide_buttons != 'true' && model.hide_buttons != 'minus'" />
+                    v-if="model.hide_buttons == undefined || !disableDownArrowValues.includes(model.hide_buttons)" />
             </span>
             <span class="name-bottom" :style="`font-size:calc(var(--font-text-size)*${model.name_bottom_height})`">
                 {{ model.name_bottom }}
@@ -75,6 +75,9 @@ const state = reactive({
 if (!['default', 'horizontal', 'vertical', undefined].includes(props.model.style)) {
     throw new Error(`Invalid style on Counter: ${props.model.style}`);
 }
+
+const disableUpArrowValues = [true, "true", "both", "minus"]
+const disableDownArrowValues = [true, "true", "both", "plus"]
 
 const validateInput = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -172,7 +175,6 @@ watch(() => props.model?.current_value, (newVal: number | undefined) => {
     margin: 0;
     align-items: center;
     justify-content: center;
-    margin-left: 1ch;
 }
 
 .counter-inner-container {
