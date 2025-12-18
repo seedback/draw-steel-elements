@@ -7,14 +7,25 @@ description: Schema for validating Draw Steel character skills data
 type: object
 allOf:
   - $ref: dse.common-component-fields.schema.json-1.0.0
+  - oneOf:
+      - properties:
+          name:
+            type: string
+            description: The name to use for both top and bottom positions.
+        required:
+          - name
+      - properties:
+          name_top:
+            type: string
+            description: The name shown above the counter (e.g., "Stamina", "Heroic Resource").
+          name_bottom:
+            type: string
+            description: The name shown below the counter (e.g., "Focus", "Drama).
+        required:
+          - name_top
+          - name_bottom
   - type: object
     properties:
-      name_top:
-        type: string
-        description: The name shown above the counter (e.g., "Stamina", "Heroic Resource").
-      name_bottom:
-        type: string
-        description: The name shown below the counter (e.g., "Focus", "Drama).
       current_value: 
         type: integer
         description: The current value of the counter.

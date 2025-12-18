@@ -1,12 +1,21 @@
-import { parseYaml } from "obsidian";
+import {parseYaml} from "obsidian";
 import {
     validateDataWithSchema,
     ValidationError,
 } from "@utils/JsonSchemaValidator";
-import { ComponentWrapper } from "@model/ComponentWrapper";
+import {ComponentWrapper} from "@model/ComponentWrapper";
 import counterSchemaYaml from "@model/schemas/Counter.yaml";
 
-type HideButtonsType = true | false | "true" | "false" | "neither" | "both" | "plus" | "minus" | undefined;
+type HideButtonsType =
+    | true
+    | false
+    | "true"
+    | "false"
+    | "neither"
+    | "both"
+    | "plus"
+    | "minus"
+    | undefined;
 type StyleType = "default" | "horizontal" | "vertical" | undefined;
 export class Counter extends ComponentWrapper {
     name_top: string;
@@ -55,12 +64,13 @@ export class Counter extends ComponentWrapper {
             data.min_value,
             data.name_top,
             data.name_bottom,
+            data.name,
             data.auto_save,
             data.value_height,
             data.name_top_height,
             data.name_bottom_height,
             data.hide_buttons,
-            data.style,
+            data.style
         );
     }
 
@@ -72,26 +82,42 @@ export class Counter extends ComponentWrapper {
         min_value: number,
         name_top: string,
         name_bottom: string,
+        name: string,
         auto_save: boolean,
         value_height: number,
         name_top_height: number,
         name_bottom_height: number,
         hide_buttons: HideButtonsType,
-        style: StyleType,
+        style: StyleType
     ) {
         super(collapsible, collapse_default);
         this.min_value = min_value ?? undefined;
         this.max_value = max_value ?? undefined;
-        if (max_value && current_value > max_value) { this.current_value = max_value}
-        else if (max_value && current_value < min_value) { this.current_value = min_value}
-        else {this.current_value = current_value ?? 0}
-        this.name_top = name_top;
-        this.name_bottom = name_bottom;
+
+        // Clamping current_value to min and max_value bounds.
+        // Note: this does not mirror back to yaml unless you update the value.
+        if (max_value && current_value > max_value) {
+            this.current_value = max_value;
+        } else if (max_value && current_value < min_value) {
+            this.current_value = min_value;
+        } else {
+            this.current_value = current_value ?? 0;
+        }
+
+        console.log(name, name_top, name_bottom)
+        // Prefering the use of a simple name field above name_top and name_bottom.
+        if (name) {
+            this.name_bottom = name;
+        } else {
+            this.name_top = name_top;
+            this.name_bottom = name_bottom;
+        }
+        
         this.auto_save = auto_save ?? false;
         this.value_height = value_height ?? 1;
         this.name_top_height = name_top_height ?? 1;
         this.name_bottom_height = name_bottom_height ?? 1;
-        this.hide_buttons = hide_buttons ?? 'neither';
-        this.style = style ?? 'default';
+        this.hide_buttons = hide_buttons ?? "neither";
+        this.style = style ?? "default";
     }
 }

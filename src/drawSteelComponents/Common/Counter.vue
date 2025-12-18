@@ -58,12 +58,12 @@
 
 <script setup lang="ts">
 import DsButton from '@drawSteelComponents/Common/DsButton.vue'
-import { Counter } from '@model/Counter';
+import {Counter} from '@model/Counter';
 import TooltipHover from '@drawSteelComponents/Common/TooltipHover.vue'
-import { inject, reactive, watch } from 'vue';
-import { ModalProcessor } from '@/utils/ModalProcessor';
-import { App, MarkdownPostProcessorContext } from 'obsidian';
-import { CodeBlocks } from '@/utils/CodeBlocks';
+import {inject, reactive, watch} from 'vue';
+import {ModalProcessor} from '@/utils/ModalProcessor';
+import {App, MarkdownPostProcessorContext} from 'obsidian';
+import {CodeBlocks} from '@/utils/CodeBlocks';
 
 const props = defineProps<{
     model: Counter
@@ -91,7 +91,8 @@ const validateInput = (event: Event) => {
     const regex = /^[\+-]?[0-9]*$/;
     if (regex.test(value)) {
         state.inputValue = value;
-    } else {
+    }
+    else {
         target.value = state.inputValue;
     }
 }
@@ -113,7 +114,8 @@ const updateValue = (input: string | Event) => {
     if (value.length > 0 && isNaN(Number(value[0]))) {
         modifier = value[0];
         number = Number(value.slice(1));
-    } else {
+    }
+    else {
         number = Number(value);
     }
 
@@ -130,7 +132,8 @@ const updateValue = (input: string | Event) => {
         if (props.model.max_value && newValue > props.model.max_value) {
             state.inputValue = props.model.max_value.toString();
             props.model.current_value = props.model.max_value;
-        } else {
+        }
+        else {
             props.model.current_value = newValue;
         }
         emit('mod-value', number);
@@ -143,7 +146,8 @@ const updateValue = (input: string | Event) => {
         if (props.model.min_value && newValue < props.model.min_value) {
             state.inputValue = props.model.min_value.toString();
             props.model.current_value = props.model.min_value;
-        } else {
+        }
+        else {
             props.model.current_value = newValue;
         }
         emit('mod-value', -number);
@@ -166,6 +170,7 @@ watch(() => props.model?.current_value, (newVal: number | undefined) => {
     state.inputValue = String(newVal ?? 0);
 });
 
+console.log(props.model)
 </script>
 
 <style scoped>
