@@ -38,9 +38,9 @@ export class NegotiationData {
 
     setMotivationUsed(motivationName: string, used: boolean) {
         const mot = this.motivations.find(m => m.name === motivationName);
-		if (mot) {
+        if (mot) {
         	mot.hasBeenAppealedTo = used;
-		}
+        }
 
         // if a motivation is getting marked as "used previously" and the current argument also uses that motivation,
         // then mark the current argument as reusing the motivation
@@ -160,7 +160,8 @@ export function parseNegotiationData(source: string): NegotiationData {
     let data: Partial<NegotiationData>;
     try {
         data = parseYaml(source) as Partial<NegotiationData>;
-    } catch (error: any) {
+    }
+    catch (error: any) {
         throw new Error("Invalid YAML format: " + error.message);
     }
 

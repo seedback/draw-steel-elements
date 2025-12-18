@@ -33,9 +33,9 @@
 <script setup lang="ts">
 import CollapsibleHeading from "@drawSteelComponents/Common/CollapsibleHeading.vue"
 import ToggleIndicator from "@drawSteelComponents/Common/ToggleIndicator.vue"
-import { SkillInfo } from "@utils/SkillsData"
-import { toProperCase } from "@utils/common";
-import { ref } from "vue";
+import {SkillInfo} from "@utils/SkillsData"
+import {toProperCase} from "@utils/common";
+import {ref} from "vue";
 
 const props = defineProps<{
     groupName?: string,

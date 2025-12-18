@@ -9,20 +9,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {computed} from 'vue';
 
 const props = defineProps({
-	inverted: {
-		type: Boolean,
-		required: false,
-	}
+    inverted: {
+        type: Boolean,
+        required: false,
+    }
 })
 
 const centerClasses = computed(() => [
-	'line-center',
-	{
-		'inverted': props.inverted,
-	}
+    'line-center',
+    {
+        'inverted': props.inverted,
+    }
 ])
 
 </script>

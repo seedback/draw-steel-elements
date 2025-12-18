@@ -14,12 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import { Effect } from '@/model/Effect';
+import {Effect} from '@model/Effect';
 import ConditionalSpan from '@drawSteelComponents/Common/ConditionalSpan.vue';
 import PowerRoll from '@drawSteelComponents/FeatureBlock/PowerRoll.vue';
 import FeatureBlock from '@drawSteelComponents/FeatureBlock/FeatureBlock.vue';
 
-const props = defineProps<{
+defineProps<{
     model?: Effect,
 }>();
 </script>

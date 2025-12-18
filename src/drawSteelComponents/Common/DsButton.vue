@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, useSlots } from "vue";
-import { setIcon } from "obsidian";
+import {ref, onMounted, computed, useSlots} from "vue";
+import {setIcon} from "obsidian";
 
 const props = withDefaults(defineProps<{
     icon?: string,
@@ -23,7 +23,7 @@ const slots = useSlots()
 const iconElement = ref<HTMLElement | null>(null);
 
 const buttonClasses = computed(() => [
-	{
+    {
         'text-button': props.variant == 'default',
         'icon-button': props.variant == 'icon',
         'simplified-button': props.variant == 'simplified',
@@ -34,7 +34,7 @@ const buttonClasses = computed(() => [
 
 const iconClasses = computed(() => [
     'icon',
-	{
+    {
         'pre-text-icon': slots.default,
     }
 ])

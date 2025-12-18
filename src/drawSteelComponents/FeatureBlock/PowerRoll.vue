@@ -26,11 +26,11 @@
 </template>
 
 <script setup lang="ts">
-import { h, defineComponent } from 'vue';
-import { PowerRoll } from '@/model/PowerRoll';
+import {h, defineComponent} from 'vue';
+import {PowerRoll} from '@model/PowerRoll';
 import DsGlyph from '@drawSteelComponents/Common/DsGlyph.vue';
 
-const props = defineProps<{
+defineProps<{
     model?: PowerRoll,
 }>();
 

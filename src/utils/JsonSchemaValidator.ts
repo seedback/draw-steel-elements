@@ -1,7 +1,7 @@
 import Ajv2019 from 'ajv/dist/2019';
 import addKeywords from 'ajv-keywords';
 import addErrors from 'ajv-errors';
-import { parseYaml } from 'obsidian';
+import {parseYaml} from 'obsidian';
 import draft7MetaSchema from 'ajv/dist/refs/json-schema-draft-07.json';
 
 // Type alias for convenience
@@ -45,11 +45,12 @@ function createFreshAjvInstance(): AjvInstance {
     ajv.addMetaSchema(draft7MetaSchema);
     
     // Register dependency schemas
-    for (const { id, schema } of registeredSchemas) {
+    for (const {id, schema} of registeredSchemas) {
         try {
             const parsedSchema = typeof schema === 'string' ? parseYaml(schema) : schema;
             ajv.addSchema(parsedSchema, id);
-        } catch (error: any) {
+        }
+        catch (error: any) {
             console.warn(`Failed to register schema ${id}:`, error.message);
         }
     }
@@ -60,7 +61,7 @@ function createFreshAjvInstance(): AjvInstance {
 /**
  * Get the global AJV instance (creates a basic one if not initialized)
  */
-function getAjvInstance(): AjvInstance {
+export function getAjvInstance(): AjvInstance {
     if (!globalAjv) {
         globalAjv = createFreshAjvInstance();
     }
@@ -87,7 +88,7 @@ export function validateJsonSchema(data: any, schema: object): ValidationResult 
     const isValid = validate(data);
     
     if (isValid) {
-        return { valid: true, errors: [] };
+        return {valid: true, errors: []};
     }
 
     const errors: ValidationError[] = [];
@@ -120,7 +121,8 @@ export function validateYamlWithYamlSchema(yamlData: any, yamlSchema: string): V
         const schema = parseYaml(yamlSchema);
         const data = parseYaml(yamlData);
         return validateJsonSchema(data, schema);
-    } catch (error: any) {
+    }
+    catch (error: any) {
         return {
             valid: false,
             errors: [{
@@ -140,7 +142,8 @@ export function validateJsonWithYamlSchema(data: any, yamlSchema: string): Valid
     try {
         const schema = parseYaml(yamlSchema);
         return validateJsonSchema(data, schema);
-    } catch (error: any) {
+    }
+    catch (error: any) {
         return {
             valid: false,
             errors: [{
@@ -161,7 +164,8 @@ export function validateJsonWithJsonSchema(jsonData: string, jsonSchema: string)
         const schema = JSON.parse(jsonSchema);
         const data = JSON.parse(jsonData);
         return validateJsonSchema(data, schema);
-    } catch (error: any) {
+    }
+    catch (error: any) {
         return {
             valid: false,
             errors: [{
@@ -182,7 +186,8 @@ export function validateYamlWithJsonSchema(yamlData: string, jsonSchema: string)
         const schema = JSON.parse(jsonSchema);
         const data = parseYaml(yamlData);
         return validateJsonSchema(data, schema);
-    } catch (error: any) {
+    }
+    catch (error: any) {
         return {
             valid: false,
             errors: [{
@@ -209,7 +214,8 @@ export function validateDataWithSchema(data: string | object, schema: string | J
         let parsedSchema: object;
         if (typeof schema === 'string') {
             parsedSchema = isJsonString(schema) ? JSON.parse(schema) : parseYaml(schema);
-        } else {
+        }
+        else {
             parsedSchema = schema;
         }
         
@@ -217,13 +223,15 @@ export function validateDataWithSchema(data: string | object, schema: string | J
         let parsedData: any;
         if (typeof data === 'string') {
             parsedData = isJsonString(data) ? JSON.parse(data) : parseYaml(data);
-        } else {
+        }
+        else {
             parsedData = data;
         }
         
         return validateJsonSchema(parsedData, parsedSchema);
         
-    } catch (error: any) {
+    }
+    catch (error: any) {
         return {
             valid: false,
             errors: [{
@@ -242,7 +250,8 @@ function isJsonString(str: string): boolean {
     try {
         JSON.parse(str);
         return true;
-    } catch {
+    }
+    catch {
         return false;
     }
 }

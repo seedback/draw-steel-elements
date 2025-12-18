@@ -1,4 +1,4 @@
-import { Statblock, YamlReader } from "steel-compendium-sdk";
+import {Statblock, YamlReader} from "steel-compendium-sdk";
 
 export class StatblockConfig {
     statblock: Statblock;

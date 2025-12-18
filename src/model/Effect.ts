@@ -1,5 +1,5 @@
-import type { Feature } from "@model/Feature";
-import { PowerRoll } from "@model/PowerRoll";
+import type {Feature} from "@model/Feature";
+import {PowerRoll} from "@model/PowerRoll";
 
 export class Effect {
     name?: string; //implemented
@@ -9,7 +9,7 @@ export class Effect {
 
     static parse(data: any): Effect {
         // Import Feature dynamically to avoid circular dependency issues
-        const { Feature } = require("./Feature");
+        const {Feature} = require("./Feature");
 
         const features: Feature[] | undefined =
             data.features && Array.isArray(data.features)

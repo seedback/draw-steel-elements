@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { setIcon } from 'obsidian';
-import { onMounted, ref } from 'vue';
+import {setIcon} from 'obsidian';
+import {onMounted, ref} from 'vue';
 
-const props = defineProps<{
+defineProps<{
     tooltipText: string
 }>()
 

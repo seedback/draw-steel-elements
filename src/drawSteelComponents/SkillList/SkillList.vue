@@ -14,9 +14,9 @@
 <script setup lang="ts">
 import ComponentWrapper from "@drawSteelComponents/Common/ComponentWrapper.vue";
 import SkillGroup from "@drawSteelComponents/SkillList/SkillGroup.vue";
-import { SKILL_DATA } from "@utils/SkillsData"
-import { Skills } from "@model/Skills";
-import { ref } from "vue";
+import {SKILL_DATA} from "@utils/SkillsData"
+import {Skills} from "@model/Skills";
+import {ref} from "vue";
 
 const props = defineProps<{
     model?: Skills,

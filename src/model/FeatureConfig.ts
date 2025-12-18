@@ -1,5 +1,5 @@
-import { parseYaml } from "obsidian";
-import { Feature, YamlReader } from "steel-compendium-sdk";
+import {parseYaml} from "obsidian";
+import {Feature, YamlReader} from "steel-compendium-sdk";
 
 export class FeatureConfig {
     feature: Feature;

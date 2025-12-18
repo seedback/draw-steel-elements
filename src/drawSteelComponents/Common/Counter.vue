@@ -58,12 +58,11 @@
 
 <script setup lang="ts">
 import DsButton from '@drawSteelComponents/Common/DsButton.vue'
-import {Counter} from '@model/Counter';
+import {Counter} from '@model/Counter/Counter';
 import TooltipHover from '@drawSteelComponents/Common/TooltipHover.vue'
 import {inject, reactive, watch} from 'vue';
-import {ModalProcessor} from '@/utils/ModalProcessor';
 import {App, MarkdownPostProcessorContext} from 'obsidian';
-import {CodeBlocks} from '@/utils/CodeBlocks';
+import {CodeBlocks} from '@utils/CodeBlocks';
 
 const props = defineProps<{
     model: Counter
@@ -157,11 +156,7 @@ const updateValue = (input: string | Event) => {
 }
 
 const updateYaml = () => {
-    console.log("trying to autosave");
-
     if (props.model.auto_save) {
-        console.log("autosaving");
-
         CodeBlocks.updateCounter(obsidianApp!, props.model, obsidianContext!);
     }
 }
@@ -169,8 +164,6 @@ const updateYaml = () => {
 watch(() => props.model?.current_value, (newVal: number | undefined) => {
     state.inputValue = String(newVal ?? 0);
 });
-
-console.log(props.model)
 </script>
 
 <style scoped>

@@ -5,14 +5,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue';
-import { setIcon } from 'obsidian';
+import {onMounted, reactive, ref} from 'vue';
+import {setIcon} from 'obsidian';
 
 const props = defineProps({
-	enabled: {
-		type: Boolean,
-		required: false,
-	}
+    enabled: {
+        type: Boolean,
+        required: false,
+    }
 })
 
 const emit = defineEmits<{
@@ -20,25 +20,25 @@ const emit = defineEmits<{
 }>()
 
 const state = reactive({
-	enabled: props.enabled ?? false
+    enabled: props.enabled ?? false
 });
 
 const iconContainer = ref<HTMLElement>()
 
 const handleClick = () => {
-	state.enabled = !state.enabled;
-	setIconSVG();
-	emit('toggle', state.enabled)
+    state.enabled = !state.enabled;
+    setIconSVG();
+    emit('toggle', state.enabled)
 }
 
 onMounted(() => {
-	setIconSVG();
+    setIconSVG();
 })
 
 let setIconSVG = () => {
-	if (iconContainer.value) {
-		setIcon(iconContainer.value, state.enabled ? "eye" : "eye-off");
-	}
+    if (iconContainer.value) {
+        setIcon(iconContainer.value, state.enabled ? "eye" : "eye-off");
+    }
 }
 
 </script>

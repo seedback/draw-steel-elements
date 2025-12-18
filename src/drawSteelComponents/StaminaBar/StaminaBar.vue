@@ -52,20 +52,16 @@
 <script setup lang="ts">
 import ComponentWrapper from "@drawSteelComponents/Common/ComponentWrapper.vue";
 import StaminaEditModal from "@drawSteelComponents/StaminaBar/StaminaEditModal.vue";
-import { ModalProcessor } from "@utils/ModalProcessor";
-import { StaminaBar } from '@model/StaminaBar'; 
-import { computed, inject, reactive } from "vue";
-import { App, MarkdownPostProcessorContext } from "obsidian";
-import { CodeBlocks } from "@utils/CodeBlocks";
+import {ModalProcessor} from "@utils/ModalProcessor";
+import {StaminaBar} from '@model/StaminaBar'; 
+import {computed, inject} from "vue";
+import {App, MarkdownPostProcessorContext} from "obsidian";
+import {CodeBlocks} from "@utils/CodeBlocks";
 
 const props = defineProps<{
     model?: StaminaBar,
     disable_click?: boolean,
 }>();
-
-const state = reactive({
-    show_edit: true,
-})
 
 const overlayWidth = computed(() => {
     return calculatePercentFromStamina(Math.floor(props.model?.max_stamina ?? 0) / 2, true)
@@ -86,10 +82,10 @@ const obsidianApp = inject<App>('obsidianApp')
 const obsidianContext = inject<MarkdownPostProcessorContext>('obsidianContext')
 
 const staminaBarContainerClasses = computed(() => [
-	'vue-stamina-bar-container',
-	{
-		'clickable': !props.disable_click,
-	}
+    'vue-stamina-bar-container',
+    {
+        'clickable': !props.disable_click,
+    }
 ])
 
 const calculatePercentFromStamina = (stamina: number, ignore_dying: boolean = false) => {
@@ -108,7 +104,7 @@ const handleClick = () => {
         obsidianApp!,
         StaminaEditModal,
         obsidianContext!,
-        { model: props.model },
+        {model: props.model},
         "Stamina",
         (result) => {
             CodeBlocks.updateStaminaBar(obsidianApp!, result, obsidianContext!);

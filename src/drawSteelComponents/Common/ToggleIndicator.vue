@@ -3,18 +3,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {computed} from 'vue';
 
 const props = defineProps<{
 	enabled?: boolean
 }>()
 
 const indicatorClasses = computed(() => [
-	'toggle-indicator',
-	{
-		'toggle-indicator--enabled': props.enabled,
-		'toggle-indicator--disabled': !props.enabled
-	}
+    'toggle-indicator',
+    {
+        'toggle-indicator--enabled': props.enabled,
+        'toggle-indicator--disabled': !props.enabled
+    }
 ])
 </script>
 

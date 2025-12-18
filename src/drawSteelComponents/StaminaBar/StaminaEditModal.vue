@@ -41,11 +41,10 @@
 import Modal from '@drawSteelComponents/Common/Modal.vue';
 import DsButton from "@drawSteelComponents/Common/DsButton.vue"
 import StaminaBar from '@drawSteelComponents/StaminaBar/StaminaBar.vue';
-import StaminaAdjustor from '@drawSteelComponents/StaminaBar/StaminaAdjustor.vue'
 import Counter from '@drawSteelComponents/Common/Counter.vue';
-import { computed, reactive, watch, ref } from 'vue';
-import { StaminaBar as StaminaBarModel } from '@model/StaminaBar'; 
-import { Counter as CounterModel } from '@model/Counter'
+import {computed, reactive, watch} from 'vue';
+import {StaminaBar as StaminaBarModel} from '@model/StaminaBar'; 
+import {Counter as CounterModel} from '@model/Counter/Counter'
 
 function deepCloneStaminaBar(obj: StaminaBarModel | undefined): StaminaBarModel | undefined {
     if (!obj) return undefined;

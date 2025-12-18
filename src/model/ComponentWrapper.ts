@@ -8,7 +8,8 @@ export class ComponentWrapper {
         let data: any;
         try {
             data = parseYaml(source);
-        } catch (error: any) {
+        }
+        catch (error: any) {
             throw new Error("Invalid YAML format: " + error.message);
         }
         return ComponentWrapper.parse(data);

@@ -5,18 +5,7 @@ import {
 } from "@utils/JsonSchemaValidator";
 import {ComponentWrapper} from "@model/ComponentWrapper";
 import counterSchemaYaml from "@model/schemas/Counter.yaml";
-
-type HideButtonsType =
-    | true
-    | false
-    | "true"
-    | "false"
-    | "neither"
-    | "both"
-    | "plus"
-    | "minus"
-    | undefined;
-type StyleType = "default" | "horizontal" | "vertical" | undefined;
+import {HideButtonsType, StyleType} from "./types";
 export class Counter extends ComponentWrapper {
     name_top: string;
     name_bottom: string;

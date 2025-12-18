@@ -1,5 +1,5 @@
-import { parseYaml } from "obsidian";
-import type { GlyphVariant } from "@drawSteelComponents/Common/types";
+import {parseYaml} from "obsidian";
+import type {GlyphVariant} from "@drawSteelComponents/Common/types";
 
 export class DsGlyph {
     variant: GlyphVariant;
@@ -9,7 +9,8 @@ export class DsGlyph {
         let data: any;
         try {
             data = parseYaml(source);
-        } catch (error: any) {
+        }
+        catch (error: any) {
             throw new Error("Invalid YAML format: " + error.message);
         }
         return DsGlyph.parse(data);

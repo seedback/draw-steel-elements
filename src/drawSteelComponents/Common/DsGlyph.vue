@@ -6,9 +6,9 @@
 </template>
 
 <script setup lang="ts">
-import type { GlyphVariant } from "@drawSteelComponents/Common/types";
-import type { DsGlyph } from "@model/DsGlyph";
-import { computed, ref, useSlots } from "vue";
+import type {GlyphVariant} from "@drawSteelComponents/Common/types";
+import type {DsGlyph} from "@model/DsGlyph";
+import {computed, ref} from "vue";
 
 const props = defineProps<{
     variant?: GlyphVariant,

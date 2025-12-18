@@ -1,5 +1,5 @@
-import { Modal, App, MarkdownPostProcessorContext } from "obsidian";
-import { createApp, h, DefineComponent } from "vue";
+import {Modal, App, MarkdownPostProcessorContext} from "obsidian";
+import {createApp, h, DefineComponent} from "vue";
 
 export class ModalProcessor extends Modal {
     vueComponent: DefineComponent<any, any, any>;

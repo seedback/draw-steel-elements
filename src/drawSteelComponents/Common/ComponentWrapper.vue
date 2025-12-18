@@ -13,27 +13,27 @@
 
 <script setup lang="ts">
 import ComponentHideIndicator from "@drawSteelComponents/Common/ComponentHideIndicator.vue";
-import VerticalRule from "@/drawSteelComponents/Common/VerticalRule.vue";
-import { ComponentWrapper } from "@model/ComponentWrapper";
-import { reactive } from 'vue';
+import VerticalRule from '@drawSteelComponents/Common/VerticalRule.vue';
+import {ComponentWrapper} from "@model/ComponentWrapper";
+import {reactive} from 'vue';
 
 const props = defineProps({
     model: {
         type: ComponentWrapper,
         required: false
     },
-	componentName: {
-		type: String,
-		required: true
-	},
-	collapsible: {
-		type: Boolean,
-		required: false,
-	},
-	collapse_default: {
-		type: Boolean,
-		required: false,
-	},
+    componentName: {
+        type: String,
+        required: true
+    },
+    collapsible: {
+        type: Boolean,
+        required: false,
+    },
+    collapse_default: {
+        type: Boolean,
+        required: false,
+    },
 })
 
 const collapsible_modified = props.collapsible ?? props.model?.collapsible ?? false
@@ -44,12 +44,12 @@ const emit = defineEmits<{
 }>()
 
 const state = reactive({
-	collapsed: collapse_default_modified
+    collapsed: collapse_default_modified
 })
 
 const handleToggle = () => {
-	state.collapsed = !state.collapsed
-	emit('toggle', state.collapsed)
+    state.collapsed = !state.collapsed
+    emit('toggle', state.collapsed)
 }
 </script>
 

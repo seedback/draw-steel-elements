@@ -7,12 +7,12 @@ export class PowerRoll {
     constructor(
         roll: string | undefined,
         tier1: string | undefined,
-		tier2: string | undefined,
-		tier3: string | undefined,
+        tier2: string | undefined,
+        tier3: string | undefined,
     ) {
         this.roll = roll;
         this.tier1 = tier1;
-		this.tier2 = tier2;
-		this.tier3 = tier3;
+        this.tier2 = tier2;
+        this.tier3 = tier3;
     }
 }

@@ -2,18 +2,18 @@ import {Plugin} from 'obsidian';
 import {MyPluginSettingTab} from "@views/SettingsTab";
 import {DEFAULT_SETTINGS, DSESettings} from "@model/Settings";
 import {CompendiumDownloader} from "@utils/CompendiumDownloader";
-import { registerElements } from '@utils/RegisterElements';
-import { initializeSchemaRegistry, resetSchemaRegistry } from '@utils/JsonSchemaValidator';
+import {registerElements} from '@utils/RegisterElements';
+import {initializeSchemaRegistry, resetSchemaRegistry} from '@utils/JsonSchemaValidator';
 import "./styles-source.css";
 
 import commonElementFieldsSchema from '@model/schemas/CommonElementFieldsSchema.yaml';
-import { featureSchema } from "steel-compendium-sdk/schema";
+import {featureSchema} from "steel-compendium-sdk/schema";
 
 export default class DrawSteelAdmonitionPlugin extends Plugin {
     settings: DSESettings;
 
-	readonly githubOwner = "steelCompendium";
-	readonly githubRepo = "data-md-dse";
+    readonly githubOwner = "steelCompendium";
+    readonly githubRepo = "data-md-dse";
 
     async onload() {
         console.log("Loading Draw Steel Elements Plugin.")

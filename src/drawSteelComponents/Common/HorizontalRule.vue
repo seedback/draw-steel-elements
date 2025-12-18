@@ -19,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { HorizontalRule, HorizontalRuleVariant } from '@/model/HorizontalRule';
+import {computed} from 'vue';
+import {HorizontalRule, HorizontalRuleVariant} from '@model/HorizontalRule';
 
 const props = defineProps<{
     model?: HorizontalRule,

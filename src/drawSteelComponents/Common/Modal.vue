@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import DsButton from "@drawSteelComponents/Common/DsButton.vue"
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
     cancel_button_text?: string
     ok_button_text?: string
     cancel_button_icon?: string

@@ -51,8 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { Feature } from '@/model/Feature';
+import {computed} from 'vue';
+import {Feature} from '@model/Feature';
 
 import ConditionalSpan from '@drawSteelComponents/Common/ConditionalSpan.vue';
 import DsGlyph from '@drawSteelComponents/Common/DsGlyph.vue';

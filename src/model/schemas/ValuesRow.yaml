@@ -1,0 +1,95 @@
+# JSON Schema in YAML format for Draw Steel Values Row
+$schema: https://json-schema.org/draft/2019-09/schema
+$id: dse.values-row.schema.json-1.0.0
+title: Draw Steel Values Row
+description: Schema for validating Draw Steel values row data
+
+type: object
+allOf:
+  - $ref: dse.common-component-fields.schema.json-1.0.0
+  - type: object
+    properties:
+      counters:
+        type: array
+        description: Array of counter configurations.
+        items:
+          type: object
+          allOf:
+            - oneOf:
+                - properties:
+                    name:
+                      type: string
+                      description: alias for name_bottom for ease of use.
+                  required:
+                    - name
+                - properties:
+                    name_top:
+                      type: string
+                      description: The name shown above the counter.
+                    name_bottom:
+                      type: string
+                      description: The name shown below the counter.
+                  required:
+                    - name_top
+                    - name_bottom
+            - type: object
+              properties:
+                current_value:
+                  type: integer
+                  description: The current value of the counter.
+                max_value:
+                  type: integer
+                  description: The maximum value the counter can reach.
+                min_value:
+                  type: integer
+                  description: The minimum value the counter can reach.
+                hide_buttons:
+                  oneOf:
+                    - type: boolean
+                    - type: string
+                      transform:
+                        - trim
+                        - toLowerCase
+                      enum:
+                        - "true"
+                        - "false"
+                        - both
+                        - neither
+                        - plus
+                        - minus
+                  default: false
+                  description: '"true" will hide both buttons, "plus" and "minus" will hide the corresponding button.'
+                  errorMessage: hide_buttons must be a boolean or one of "true", "false", "both", "neither", "plus", "minus"
+      value_height:
+        type: integer
+        description: Adjusts the size of the counter value text for all counters.
+        default: 3
+        minimum: 1
+      name_top_height:
+        type: integer
+        description: Adjusts the size of the name_top text for all counters.
+        default: 1
+        minimum: 1
+      name_bottom_height:
+        type: integer
+        description: Adjusts the size of the name_bottom text for all counters.
+        default: 1
+        minimum: 1
+      style:
+        type: string
+        description: The style all counters should use.
+        transform:
+          - trim
+          - toLowerCase
+        enum:
+          - default
+          - horizontal
+          - vertical
+        default: horizontal
+        errorMessage: style must be either "horizontal" or "vertical"
+
+unevaluatedProperties:
+  const: false
+  errorMessage: |
+    ValuesRow object contains invalid property '${0#}'. 
+    Allowed properties: counters, value_height, name_top_height, name_bottom_height, style.

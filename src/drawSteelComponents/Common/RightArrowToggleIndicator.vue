@@ -4,14 +4,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { setIcon } from 'obsidian';
+import {computed, onMounted, ref} from 'vue';
+import {setIcon} from 'obsidian';
 
 const props = defineProps({
-	enabled: {
-		type: Boolean,
-		required: false,
-	}
+    enabled: {
+        type: Boolean,
+        required: false,
+    }
 })
 
 const emit = defineEmits<{
@@ -21,22 +21,22 @@ const emit = defineEmits<{
 const iconContainer = ref<HTMLElement>()
 
 const collapseClasses = computed(() => [
-	'heading-collapse-indicator',
-	'collapse-indicator',
-	'collapse-icon',
-	{
-		'is-collapsed': !props.enabled,
-	}
+    'heading-collapse-indicator',
+    'collapse-indicator',
+    'collapse-icon',
+    {
+        'is-collapsed': !props.enabled,
+    }
 ])
 
 const handleClick = () => {
-	emit('toggle', !props.enabled)
+    emit('toggle', !props.enabled)
 }
 
 onMounted(() => {
-	if (iconContainer.value) {
-		setIcon(iconContainer.value, 'right-triangle');
-	}
+    if (iconContainer.value) {
+        setIcon(iconContainer.value, 'right-triangle');
+    }
 })
 </script>
 
