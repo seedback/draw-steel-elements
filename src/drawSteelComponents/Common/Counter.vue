@@ -1,5 +1,6 @@
 <template>
     <span class="counter-wrapper">
+        <component-wrapper component-name="Counter" :collapsible="model.collapsible" :collapse_default="model.collapse_default">
         <span
             class="counter-container vertical"
             v-if="
@@ -122,6 +123,7 @@
         </span>
 
         <span v-else> Unknown style "{{ model.style }}" </span>
+        </component-wrapper>
     </span>
 </template>
 
@@ -129,6 +131,7 @@
 import DsButton from "@drawSteelComponents/Common/DsButton.vue";
 import { Counter } from "@model/Counter";
 import TooltipHover from "@drawSteelComponents/Common/TooltipHover.vue";
+import ComponentWrapper from "./ComponentWrapper.vue";
 import { reactive, watch } from "vue";
 
 const props = defineProps<{
